@@ -1,4 +1,4 @@
-(define (domain hotel-ext1)
+(define (domain hotel-ext4-rech5)
   (:requirements
       :typing
       :negative-preconditions
@@ -19,6 +19,7 @@
     (asignada ?r - reserva)
     (rechazada ?r - reserva)
     (habitacion-elegida ?r - reserva ?h - habitacion)
+    (habitacion-asignada ?h - habitacion)
   )
 
   ;; Fluentes
@@ -26,6 +27,10 @@
     (capacidad ?h - habitacion)
     (tamano-reserva ?r - reserva)
     (dias-restantes ?r - reserva)
+    (habitaciones-asignadas)
+    (perdida1)
+    (perdida2)
+    (perdida3)
     (reservas-rechazadas)
   )
 
@@ -67,7 +72,49 @@
         (asignada ?r)
         (not (pendiente ?r))
 
-        
+        ;; ===========================
+        ;; Extensión 4: contar habitaciones distintas usadas.
+        ;; Solo incrementa si la habitación no estaba marcada.
+        ;; Incremento constante (10) para darle más peso que al desperdicio
+        ;; pero menos que a rechazar reservas.
+        ;; ===========================
+        (forall (?h - habitacion)
+          (when (and (habitacion-elegida ?r ?h)
+                     (not (habitacion-asignada ?h)))
+            (and
+              (habitacion-asignada ?h)
+              (increase (habitaciones-asignadas) 10)
+            )
+          )
+        )
+
+        ;; ===========================
+        ;; Extensión 3: pérdidas por plazas libres.
+        ;; capacidad = tamaño + 1 -> pérdida1 += 1
+        ;; capacidad = tamaño + 2 -> pérdida2 += 2
+        ;; capacidad = tamaño + 3 -> pérdida3 += 3
+        ;; ===========================
+        (forall (?h - habitacion)
+          (when (and 
+                  (habitacion-elegida ?r ?h)
+                  (= (capacidad ?h) (+ (tamano-reserva ?r) 1)))
+            (increase (perdida1) 1)
+          )
+        )
+        (forall (?h - habitacion)
+          (when (and 
+                  (habitacion-elegida ?r ?h)
+                  (= (capacidad ?h) (+ (tamano-reserva ?r) 2)))
+            (increase (perdida2) 2)
+          )
+        )
+        (forall (?h - habitacion)
+          (when (and 
+                  (habitacion-elegida ?r ?h)
+                  (= (capacidad ?h) (+ (tamano-reserva ?r) 3)))
+            (increase (perdida3) 3)
+          )
+        )
     )
   )
 
@@ -84,10 +131,9 @@
     :effect (and
         (rechazada ?r)
         (not (pendiente ?r))
-        ;; Extensión 1:
-        ;; Incremento constante grande (1000) para que el planificador
-        ;; priorice minimizar reservas rechazadas por encima del resto.
-        (increase (reservas-rechazadas) 1000)
+        ;; Versión experimento 10:
+        ;; Rechazar es barato (5) para ver cómo cambia el comportamiento.
+        (increase (reservas-rechazadas) 5)
     )
   )
 )

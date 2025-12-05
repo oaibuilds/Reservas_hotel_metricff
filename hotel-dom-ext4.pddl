@@ -1,4 +1,4 @@
-(define (domain hotel)
+(define (domain hotel-ext4)
   (:requirements
       :typing
       :negative-preconditions

@@ -1,5 +1,5 @@
-(define (problem prueba-ext-1-3-4)
-  (:domain hotel)
+(define (problem prueba-ext-1-3)
+  (:domain hotel-ext3)
 
   (:objects
       h1 h2        - habitacion
