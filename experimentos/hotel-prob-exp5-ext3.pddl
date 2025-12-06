@@ -2,31 +2,37 @@
   (:domain hotel-ext3)
 
   (:objects
-    h1 h2       - habitacion
-    r1          - reserva
-    d1 d2       - dia
+      ;; Rooms
+      h1 h2 - habitacion
+
+      ;; Reservations
+      r1 - reserva
+
+      ;; Days
+      d1 d2 - dia
   )
 
   (:init
-    ;; Contadores numéricos
-    (= (reservas-rechazadas) 0)
-    (= (perdida1) 0)
-    (= (perdida2) 0)
-    (= (perdida3) 0)
+      ;; Counters (Ext.3)
+      (= (perdida1) 0)
+      (= (perdida2) 0)
+      (= (perdida3) 0)
+      (= (reservas-rechazadas) 0)
 
-    ;; Dos habitaciones: una ajustada, otra grande
-    (= (capacidad h1) 2)  ;; ajustada
-    (= (capacidad h2) 4)  ;; genera pérdidas si se usa
+      ;; Room capacities
+      (= (capacidad h1) 2)
+      (= (capacidad h2) 4)
 
-    ;; Una reserva de 2 personas
-    (= (tamano-reserva r1) 2)
+      ;; Reservation sizes
+      (= (tamano-reserva r1) 2)
 
-    ;; r1 ocupa los días d1–d2
-    (dia-de-reserva r1 d1)
-    (dia-de-reserva r1 d2)
-    (= (dias-restantes r1) 2)
+      ;; Reservation days and dias-restantes
+      (dia-de-reserva r1 d1)
+      (dia-de-reserva r1 d2)
+      (= (dias-restantes r1) 2)
 
-    (pendiente r1)
+      ;; Pending reservations
+      (pendiente r1)
   )
 
   (:goal
@@ -39,4 +45,5 @@
        (+ (perdida1)
           (+ (perdida2) (perdida3))))
   )
+
 )
