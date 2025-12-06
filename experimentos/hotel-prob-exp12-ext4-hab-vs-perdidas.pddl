@@ -33,7 +33,7 @@
     (= (tamano-reserva r6) 1)
 
     ;; Todas de 1 día, sin solapamiento
-    (dia-de-reserva r1 d1)
+    (dia-de-reserva r1 d4)
     (= (dias-restantes r1) 1)
 
     (dia-de-reserva r2 d2)
@@ -42,7 +42,7 @@
     (dia-de-reserva r3 d3)
     (= (dias-restantes r3) 1)
 
-    (dia-de-reserva r4 d4)
+    (dia-de-reserva r4 d1)
     (= (dias-restantes r4) 1)
 
     (dia-de-reserva r5 d5)

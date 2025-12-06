@@ -1,0 +1,13 @@
+Exception: STATUS_ACCESS_VIOLATION at eip=0042EE76
+eax=0000006D ebx=01B152F0 ecx=00000000 edx=00000000 esi=5FE2FF28 edi=009EC930
+ebp=009E7AE8 esp=009E7A80 program=C:\Users\maxvi\OneDrive\Escriptori\3r Quadri\ABIA\Planificacio\MetricFF\Reservas_hotel_metricff\metricff.exe, pid 11700, thread main
+cs=0023 ds=002B es=002B fs=0053 gs=002B ss=002B
+Stack trace:
+Frame     Function  Args
+009E7AE8  0042EE76  (009EC930, 00000011, 5FE2FD88, 00000000)
+009EC958  0043031E  (009EC9A0, 00000001, 00000005, 00721D00)
+009ECBC8  00401918  (00000006, 01A601D0, 01A60090, 61011AAE)
+009ECD48  610060D8  (00000000, 009ECD80, 61005450, 009ECD80)
+61005450  61004416  (0000009C, A02404C7, E8611021, FFFFFF48)
+  30202 [main] metricff 11700 _cygtls::handle_exceptions: Exception: STATUS_ACCESS_VIOLATION
+  31323 [main] metricff 11700 _cygtls::handle_exceptions: Error while dumping state (probably corrupted stack)
